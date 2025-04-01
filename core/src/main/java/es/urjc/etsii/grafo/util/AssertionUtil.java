@@ -15,7 +15,7 @@ public class AssertionUtil {
      * @return true if valid supposition, false otherwise
      */
     public static boolean biimplication(boolean p, boolean q){
-        return (p & q) || (!p && !q);
+        return (p && q) || (!p && !q);
     }
     /**
      * Does the supposition "if then" hold?
