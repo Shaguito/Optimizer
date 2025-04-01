@@ -13,7 +13,7 @@
   <version>2023.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Optimizer</name>n>
+  <name>Optimizer</name>
   <url>https://github.com/Shaguito/Optimizer</url>
   <organization>
     <name>OWASP</name>
