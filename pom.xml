@@ -53,9 +53,6 @@
                 <!-- Configuración para análisis de múltiples lenguajes -->
                 <sonar.sources>.</sonar.sources>
                 <sonar.exclusions>**/node_modules/**, **/target/**, **/.git/**, **/*.min.js, **/*.min.css</sonar.exclusions>
-                <sonar.tests>./src/test</sonar.tests> <!-- Si tienes tests -->
-                <sonar.test.inclusions>**/*Test*/**</sonar.test.inclusions>
-                <sonar.coverage.exclusions>**/*Test*/**</sonar.coverage.exclusions>
             </properties>
         </profile>
     </profiles>
