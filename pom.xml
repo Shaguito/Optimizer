@@ -4,39 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Información básica del proyecto -->
+    <!-- Metadata mínima requerida -->
     <groupId>Shaguito</groupId>
-    <artifactId>Optimizer</artifactId>
+    <artifactId>code-analyzer</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging> <!-- Usamos 'pom' para proyectos multimódulo o análisis genérico -->
-
-    <name>SonarQube Analysis Project</name>
-    <description>Project for SonarQube code analysis</description>
+    <packaging>pom</packaging>
 
     <properties>
-         <sonar.java.binaries>target/classes</sonar.java.binaries>
-             <sonar.java.libraries>target/*.jar</sonar.java.libraries>
-             <sonar.java.test.binaries>target/test-classes</sonar.java.test.binaries>
-      <sonar.organization>shaguito</sonar.organization>
-      <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-      <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
-      <skipTests>true</skipTests>
+        <!-- Configuración SonarQube esencial -->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url> <!-- Cambiar para SonarQube local -->
+        <sonar.projectKey>Optimizer</sonar.projectKey>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        
+        <!-- Configuración específica para Java -->
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.java.libraries>target/*.jar</sonar.java.libraries>
+        
+        <!-- Configuración específica para JavaScript -->
+        <sonar.javascript.lcov.reportPaths>coverage/lcov.info</sonar.javascript.lcov.reportPaths>
     </properties>
 
     <build>
         <plugins>
-            <!-- Plugin para compilación básica (necesario incluso para análisis) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-
-            <!-- Plugin de SonarQube -->
+            <!-- Plugin SonarQube (único plugin necesario) -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -45,17 +35,29 @@
         </plugins>
     </build>
 
-    <!-- Perfil para ejecución de SonarQube -->
     <profiles>
         <profile>
-            <id>sonar</id>
+            <id>analysis</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <!-- Configuración para análisis de múltiples lenguajes -->
-                <sonar.sources>.</sonar.sources>
-                <sonar.exclusions>**/node_modules/**, **/target/**, **/.git/**, **/*.min.js, **/*.min.css</sonar.exclusions>
+                <!-- Exclusiones comunes -->
+                <sonar.exclusions>
+                    **/node_modules/**,
+                    **/bower_components/**,
+                    **/*.min.js,
+                    **/vendor/**,
+                    **/test/**,
+                    **/tmp/**
+                </sonar.exclusions>
+                
+                <!-- Inclusions explícitas -->
+                <sonar.inclusions>
+                    **/*.java,
+                    **/*.js,
+                    **/*.jsx
+                </sonar.inclusions>
             </properties>
         </profile>
     </profiles>
